@@ -30,6 +30,7 @@ function makePresetButtons(){
     const btn = document.createElement("button");
     btn.textContent = p;
     btn.className = "small";
+    btn.setAttribute('aria-label', `プリセット ${p}`);
     btn.addEventListener("click", ()=> doRollAndLog(p));
     container.appendChild(btn);
   });
@@ -216,11 +217,14 @@ function renderLogs(){
   });
 
   if(logs.length === 0){
+    const li = document.createElement("li");
+    li.className = "log-item";
     const empty = document.createElement("div");
     empty.className = "small-text";
     empty.style.padding = "12px";
     empty.textContent = "ログはまだありません。";
-    list.appendChild(empty);
+    li.appendChild(empty);
+    list.appendChild(li);
   }
 }
 
