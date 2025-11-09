@@ -118,6 +118,8 @@ main{
 .badge{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:800;color:#fff;font-size:0.95rem}
 .badge.fumble{background:var(--danger)}
 .badge.crit{background:var(--good)}
+/* 連続表示用バッジ（グレー） */
+.badge.repeat{background:var(--muted)}
 .rolls{display:flex;gap:8px;flex-wrap:wrap;max-width:420px}
 .roll-pill{background:#f3f4f6;padding:8px 10px;border-radius:999px;font-weight:800;font-size:1rem}
 .roll-pill.neg{background:#fee2e2;color:var(--danger)}
