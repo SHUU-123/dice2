@@ -1,0 +1,98 @@
+:root{
+  --bg:#f6f7fb;
+  --card:#ffffff;
+  --accent:#3b82f6;
+  --muted:#6b7280;
+  --danger:#ef4444;
+  --good:#10b981;
+  --shadow: 0 2px 8px rgba(15,23,42,0.08);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,"Hiragino Kaku Gothic ProN","Noto Sans JP",Helvetica,Arial;
+  background:linear-gradient(180deg,#eef2ff 0%,var(--bg) 100%);
+  color:#111827;
+  padding:16px;
+}
+
+header{
+  text-align:center;
+  margin-bottom:16px;
+}
+h1{margin:6px 0}
+.subtitle{margin:0;color:var(--muted);font-size:0.95rem}
+
+main{
+  display:grid;
+  grid-template-columns: 360px 1fr;
+  gap:16px;
+  align-items:start;
+  max-width:1100px;
+  margin:0 auto;
+}
+
+.controls{
+  background:var(--card);
+  padding:12px;
+  border-radius:10px;
+  box-shadow:var(--shadow);
+}
+
+.preset h2, .simple-roll h2, .custom h2 {margin:0 0 8px 0;font-size:1rem}
+.grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.grid button{
+  background:#111827;color:#fff;border:none;padding:8px 10px;border-radius:8px;cursor:pointer;
+  font-weight:600;
+}
+.grid button.small{padding:6px 8px;font-size:0.9rem}
+.row{display:flex;gap:8px;align-items:center}
+.row input, .row select{
+  padding:8px;border-radius:8px;border:1px solid #e5e7eb;flex:1;
+  font-size:1rem;
+}
+.row button{
+  background:var(--accent);border:none;color:#fff;padding:10px 12px;border-radius:8px;cursor:pointer;font-weight:700;
+}
+
+.hint{color:var(--muted);font-size:0.85rem;margin-top:6px}
+
+.log-section{
+  background:var(--card);
+  padding:12px;border-radius:10px;box-shadow:var(--shadow);
+}
+
+.log-actions{display:flex;justify-content:flex-end;margin-bottom:8px}
+#clear-all{background:#f97316;border:none;color:#fff;padding:8px 10px;border-radius:8px;cursor:pointer}
+
+.log-list{list-style:none;padding:0;margin:0;max-height:60vh;overflow:auto}
+.log-item{
+  display:flex;justify-content:space-between;gap:12px;
+  padding:10px;border-radius:8px;border:1px solid #eef2ff;margin-bottom:8px;background:#fff;
+  align-items:center;
+}
+.log-main{display:flex;gap:12px;align-items:center;flex:1}
+.log-meta{min-width:220px;text-align:right;color:var(--muted);font-size:0.9rem}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;font-weight:700;color:#fff;font-size:0.85rem}
+.badge.fumble{background:var(--danger)}
+.badge.crit{background:var(--good)}
+.rolls{display:flex;gap:6px;flex-wrap:wrap;max-width:360px}
+.roll-pill{background:#f3f4f6;padding:6px 8px;border-radius:999px;font-weight:700}
+.roll-pill.neg{background:#fee2e2;color:var(--danger)}
+.formula{font-weight:800}
+
+.log-item.latest{outline:3px solid rgba(59,130,246,0.14)}
+
+.delete-btn{background:transparent;border:1px solid #efefef;padding:6px 8px;border-radius:8px;cursor:pointer;color:var(--muted)}
+.small-text{font-size:0.85rem;color:var(--muted)}
+
+@media (max-width:920px){
+  main{grid-template-columns:1fr; padding-bottom:40px}
+  .log-meta{display:block;text-align:left;margin-top:6px}
+}
