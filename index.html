@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dice Roller PWA</title>
+  <meta name="theme-color" content="#2b2f3a" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="manifest.json" />
+</head>
+<body>
+  <header>
+    <h1>Dice Roller</h1>
+    <p class="subtitle">2d6プリセット、1d1〜1d100、カスタム NdS±M。ログは localStorage に保存。</p>
+  </header>
+
+  <main>
+    <section class="controls">
+      <div class="preset">
+        <h2>プリセット</h2>
+        <div id="preset-buttons" class="grid"></div>
+      </div>
+
+      <div class="simple-roll">
+        <h2>1dN セレクト</h2>
+        <div class="row">
+          <select id="select-1dN"></select>
+          <button id="roll-1dN">振る</button>
+        </div>
+      </div>
+
+      <div class="custom">
+        <h2>カスタムダイス</h2>
+        <div class="row">
+          <input id="custom-input" placeholder="例: 2d6+3, d20, -1d6+2" />
+          <button id="roll-custom">振る</button>
+        </div>
+        <div class="hint">フォーマット: NdS±M（Nは符号付き可、Sのみ必須、Mは省略可）</div>
+      </div>
+    </section>
+
+    <section class="log-section">
+      <h2>ログ</h2>
+      <div class="log-actions">
+        <button id="clear-all">全削除</button>
+      </div>
+      <ul id="log-list" class="log-list"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <small>オフライン対応の PWA。インストール可能。</small>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(function(err){
+        console.warn('SW registration failed:', err);
+      });
+    }
+  </script>
+</body>
+</html>
