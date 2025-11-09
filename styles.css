@@ -5,7 +5,7 @@
   --muted:#6b7280;
   --danger:#ef4444;
   --good:#10b981;
-  --shadow: 0 2px 8px rgba(15,23,42,0.08);
+  --shadow: 0 2px 10px rgba(15,23,42,0.08);
 }
 
 *{box-sizing:border-box}
@@ -15,152 +15,174 @@ body{
   font-family:system-ui,-apple-system,Segoe UI,Roboto,"Hiragino Kaku Gothic ProN","Noto Sans JP",Helvetica,Arial;
   background:linear-gradient(180deg,#eef2ff 0%,var(--bg) 100%);
   color:#111827;
-  padding:16px;
+  padding:18px; /* 余白をやや確保しつつ広く使う */
   font-size:16px;
 }
 
 header{
   text-align:center;
-  margin-bottom:16px;
+  margin-bottom:18px;
 }
-h1{margin:6px 0}
-.subtitle{margin:0;color:var(--muted);font-size:0.95rem}
+h1{margin:8px 0}
+.subtitle{margin:0;color:var(--muted);font-size:0.98rem}
 
 main{
   display:grid;
-  grid-template-columns: 360px 1fr;
-  gap:16px;
+  /* デフォルトは左カラム固定、右は伸長 */
+  grid-template-columns: 420px 1fr;
+  gap:18px;
   align-items:start;
-  max-width:1100px;
-  margin:0 auto;
+  width:100%;
+  max-width:none; /* 画面幅を最大限使う */
+  margin:0; /* 中央寄せではなく左右を活かす */
 }
 
 .controls{
   background:var(--card);
-  padding:12px;
-  border-radius:10px;
+  padding:16px;
+  border-radius:12px;
   box-shadow:var(--shadow);
 }
 
-.preset h2, .simple-roll h2, .custom h2 {margin:0 0 8px 0;font-size:1rem}
+.preset h2, .simple-roll h2, .custom h2 {margin:0 0 10px 0;font-size:1.05rem}
 .grid{
   display:flex;
   flex-wrap:wrap;
-  gap:8px;
+  gap:10px;
 }
-/* デフォルト: プリセットボタンを押しやすく（一般的なサイズ） */
+/* プリセットボタン（大きめ） */
 .grid button{
-  background:#111827;color:#fff;border:none;padding:12px 14px;border-radius:10px;cursor:pointer;
-  font-weight:700;font-size:1rem;min-height:48px;min-width:64px;
-  display:inline-flex;align-items:center;justify-content:center;touch-action:manipulation;
+  background:#111827;
+  color:#fff;
+  border:none;
+  padding:16px 18px;
+  border-radius:14px;
+  cursor:pointer;
+  font-weight:800;
+  font-size:1.1rem;
+  min-height:72px; /* タッチターゲットを大きめに */
+  min-width:88px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  touch-action:manipulation;
 }
 
-/* small クラスの調整 */
-.grid button.small{padding:10px 12px;font-size:0.98rem;min-height:44px;min-width:56px}
+/* small クラスも適切に大きく */
+.grid button.small{
+  padding:14px 16px;
+  font-size:1.02rem;
+  min-height:68px;
+  min-width:76px;
+}
 
-.row{display:flex;gap:8px;align-items:center}
+.row{display:flex;gap:12px;align-items:center}
 .row input, .row select{
-  padding:8px;border-radius:8px;border:1px solid #e5e7eb;flex:1;
-  font-size:1rem;
+  padding:12px;border-radius:10px;border:1px solid #e5e7eb;flex:1;
+  font-size:1.05rem;
 }
 .row button{
-  background:var(--accent);border:none;color:#fff;padding:12px 16px;border-radius:10px;cursor:pointer;font-weight:800;
-  font-size:1rem;min-height:48px;touch-action:manipulation;
+  background:var(--accent);
+  border:none;
+  color:#fff;
+  padding:16px 20px;
+  border-radius:14px;
+  cursor:pointer;
+  font-weight:800;
+  font-size:1.05rem;
+  min-height:72px; /* 大きめにして押しやすく */
+  touch-action:manipulation;
+  box-shadow: 0 2px 6px rgba(59,130,246,0.12);
 }
 
-.hint{color:var(--muted);font-size:0.85rem;margin-top:6px}
+.hint{color:var(--muted);font-size:0.95rem;margin-top:8px}
 
 .log-section{
   background:var(--card);
-  padding:12px;border-radius:10px;box-shadow:var(--shadow);
+  padding:16px;border-radius:12px;box-shadow:var(--shadow);
 }
 
-.log-actions{display:flex;justify-content:flex-end;margin-bottom:8px}
-#clear-all{background:#f97316;border:none;color:#fff;padding:8px 10px;border-radius:8px;cursor:pointer}
+/* ログアクション（右上） */
+.log-actions{display:flex;justify-content:flex-end;margin-bottom:10px}
+#clear-all{background:#f97316;border:none;color:#fff;padding:10px 12px;border-radius:10px;cursor:pointer;font-weight:700}
 
-.log-list{list-style:none;padding:0;margin:0;max-height:60vh;overflow:auto}
+/* ログリスト */
+.log-list{list-style:none;padding:0;margin:0;max-height:70vh;overflow:auto}
 .log-item{
-  display:flex;justify-content:space-between;gap:12px;
-  padding:10px;border-radius:8px;border:1px solid #eef2ff;margin-bottom:8px;background:#fff;
+  display:flex;justify-content:space-between;gap:14px;
+  padding:14px;border-radius:10px;border:1px solid #eef2ff;margin-bottom:10px;background:#fff;
   align-items:center;
 }
-.log-main{display:flex;gap:12px;align-items:center;flex:1}
-.log-meta{min-width:220px;text-align:right;color:var(--muted);font-size:0.9rem}
-.badge{display:inline-block;padding:4px 8px;border-radius:999px;font-weight:700;color:#fff;font-size:0.85rem}
+.log-main{display:flex;gap:14px;align-items:center;flex:1}
+.log-meta{min-width:240px;text-align:right;color:var(--muted);font-size:1rem}
+.badge{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:800;color:#fff;font-size:0.95rem}
 .badge.fumble{background:var(--danger)}
 .badge.crit{background:var(--good)}
-.rolls{display:flex;gap:6px;flex-wrap:wrap;max-width:360px}
-.roll-pill{background:#f3f4f6;padding:6px 8px;border-radius:999px;font-weight:700}
+.rolls{display:flex;gap:8px;flex-wrap:wrap;max-width:420px}
+.roll-pill{background:#f3f4f6;padding:8px 10px;border-radius:999px;font-weight:800;font-size:1rem}
 .roll-pill.neg{background:#fee2e2;color:var(--danger)}
-.formula{font-weight:800}
+.formula{font-weight:900;font-size:1.05rem}
 
-.log-item.latest{outline:3px solid rgba(59,130,246,0.14)}
+.log-item.latest{outline:4px solid rgba(59,130,246,0.14)}
 
-.delete-btn{background:transparent;border:1px solid #efefef;padding:6px 8px;border-radius:8px;cursor:pointer;color:var(--muted)}
-.small-text{font-size:0.85rem;color:var(--muted)}
+.delete-btn{background:transparent;border:1px solid #efefef;padding:8px 10px;border-radius:10px;cursor:pointer;color:var(--muted);font-weight:700}
+.small-text{font-size:0.95rem;color:var(--muted)}
 
-/* 既存モバイル対応を維持 */
+/* 狭い画面（スマホ）対応は維持 */
 @media (max-width:920px){
-  main{grid-template-columns:1fr; padding-bottom:40px}
-  .log-meta{display:block;text-align:left;margin-top:6px}
+  main{grid-template-columns:1fr; padding:18px 12px 40px}
+  .log-meta{display:block;text-align:left;margin-top:8px}
+  .grid button, .grid button.small{ min-width:72px; min-height:48px; font-size:1rem; padding:10px 12px }
+  .row button{ min-height:48px; padding:10px 12px }
 }
 
-/* iPad Pro 10.5 (横向き) 向けの拡大スタイル
-   - 横向きで幅が十分にある場合に適用（およそ 10.5" iPad の CSS px 幅を想定） */
-@media (min-width:1100px) and (orientation: landscape) {
-  body{
-    padding:24px;
-    font-size:17px; /* 全体的に微増して読みやすく */
-  }
-
+/* iPad 横向き / 大きめ画面用（表示領域を最大活用） */
+@media (min-width:1000px) and (orientation: landscape) {
+  body{ padding:14px 10px; } /* 画面左右を有効活用 */
   main{
-    grid-template-columns: 460px 1fr; /* 左サイドを広げる */
-    max-width:1200px;
+    grid-template-columns: 520px 1fr; /* コントロールを広く */
     gap:20px;
   }
 
-  .controls{
-    padding:18px;
-    border-radius:12px;
-  }
+  .controls{ padding:20px; border-radius:14px; }
+  .grid{ gap:12px; }
 
-  /* プリセットボタンをさらに大きくしてタップしやすく */
   .grid button{
-    padding:16px 18px;
-    border-radius:12px;
-    font-size:1.1rem;
-    font-weight:800;
-    min-height:64px;
-    min-width:80px;
+    padding:18px 20px;
+    border-radius:14px;
+    font-size:1.18rem;
+    font-weight:900;
+    min-height:80px;
+    min-width:96px;
   }
   .grid button.small{
-    padding:14px 16px;
-    font-size:1.05rem;
-    min-height:60px;
-    min-width:72px;
+    padding:16px 18px;
+    font-size:1.12rem;
+    min-height:76px;
+    min-width:88px;
   }
 
-  .row input, .row select{
-    padding:12px;
-    font-size:1.05rem;
-    border-radius:10px;
-  }
+  .row input, .row select{ padding:14px; font-size:1.08rem; border-radius:12px; }
   .row button{
-    padding:14px 20px;
-    border-radius:12px;
-    font-size:1.05rem;
-    min-height:64px;
+    padding:18px 22px;
+    border-radius:14px;
+    font-size:1.12rem;
+    min-height:80px;
   }
 
-  .hint{font-size:0.95rem}
+  .hint{font-size:1rem}
+  .log-section{ padding:18px }
+  .log-item{ padding:16px; border-radius:12px }
+  .roll-pill{ padding:10px 12px; font-size:1.05rem }
+  .badge{ padding:8px 12px; font-size:1rem }
+  .log-meta{ min-width:300px; font-size:1.02rem }
+  #clear-all{ padding:12px 14px; font-size:1.02rem; border-radius:12px }
+  .delete-btn{ padding:10px 12px; border-radius:12px }
+}
 
-  .log-section{padding:16px}
-
-  .log-item{padding:14px;border-radius:10px}
-  .roll-pill{padding:8px 10px;font-size:1rem}
-  .badge{padding:6px 10px;font-size:0.95rem}
-  .log-meta{min-width:260px;font-size:0.98rem}
-
-  #clear-all{padding:10px 12px;font-size:1rem;border-radius:10px}
-  .delete-btn{padding:8px 10px;border-radius:10px}
+/* 大きなスクリーンや外部ディスプレイ向け */
+@media (min-width:1600px) {
+  main{ grid-template-columns: 600px 1fr; gap:28px; }
+  .grid button{ min-height:92px; min-width:110px; font-size:1.25rem; }
+  .row button{ min-height:92px; padding:20px 26px; font-size:1.18rem; }
 }
