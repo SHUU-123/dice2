@@ -47,18 +47,49 @@ main{
   flex-wrap:wrap;
   gap:8px;
 }
+/* プリセットボタンを押しやすく（タップターゲット >= 44-48px） */
 .grid button{
-  background:#111827;color:#fff;border:none;padding:8px 10px;border-radius:8px;cursor:pointer;
-  font-weight:600;
+  background:#111827;
+  color:#fff;
+  border:none;
+  padding:12px 14px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:700;
+  font-size:1rem;
+  min-height:48px;
+  min-width:64px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  touch-action:manipulation;
 }
-.grid button.small{padding:6px 8px;font-size:0.9rem}
+
+/* small クラスも実用的なサイズに調整 */
+.grid button.small{
+  padding:10px 12px;
+  font-size:0.98rem;
+  min-height:44px;
+  min-width:56px;
+}
+
 .row{display:flex;gap:8px;align-items:center}
+/* セレクトやカスタムの「振る」ボタンを大きく */
 .row input, .row select{
   padding:8px;border-radius:8px;border:1px solid #e5e7eb;flex:1;
   font-size:1rem;
 }
 .row button{
-  background:var(--accent);border:none;color:#fff;padding:10px 12px;border-radius:8px;cursor:pointer;font-weight:700;
+  background:var(--accent);
+  border:none;
+  color:#fff;
+  padding:12px 16px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:800;
+  font-size:1rem;
+  min-height:48px;
+  touch-action:manipulation;
 }
 
 .hint{color:var(--muted);font-size:0.85rem;margin-top:6px}
@@ -95,4 +126,7 @@ main{
 @media (max-width:920px){
   main{grid-template-columns:1fr; padding-bottom:40px}
   .log-meta{display:block;text-align:left;margin-top:6px}
+  /* モバイルではさらに横幅を取りやすくする */
+  .grid button, .grid button.small{ min-width:72px; }
+  .row button{ flex-shrink:0; }
 }
