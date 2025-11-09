@@ -5,6 +5,7 @@
   - select 1d1..1d100
   - logs saved in localStorage (newest first)
   - do NOT show fumble/critical for exact 1dN where N in [1,100]
+  - improved: merge consecutive identical rolls into single log with repeatCount
 */
 
 const PRESETS = [
@@ -130,8 +131,37 @@ function saveLogs(logs){
   localStorage.setItem(STORAGE_KEY, JSON.stringify(logs.slice(0, MAX_LOGS)));
 }
 
+// Compare two log entries for "same result" (formula, total, and individual rolls/sign)
+function areEntriesEquivalent(a, b){
+  if(!a || !b) return false;
+  if(a.formula !== b.formula) return false;
+  if(Number(a.total) !== Number(b.total)) return false;
+  const ra = a.rolls || [];
+  const rb = b.rolls || [];
+  if(ra.length !== rb.length) return false;
+  for(let i=0;i<ra.length;i++){
+    if(ra[i].value !== rb[i].value) return false;
+    if(!!ra[i].signed !== !!rb[i].signed) return false;
+  }
+  return true;
+}
+
 function addLog(entry){
   const logs = loadLogs();
+  // If newest log exists and is equivalent, increment repeatCount instead of adding new entry
+  if(logs.length > 0 && areEntriesEquivalent(entry, logs[0])){
+    const latest = logs[0];
+    latest.repeatCount = (latest.repeatCount || 1) + 1;
+    // Update timestamp to reflect the most recent occurrence
+    latest.timestamp = entry.timestamp;
+    // Optionally update tag (keep existing)
+    latest.tag = entry.tag || latest.tag;
+    saveLogs(logs);
+    renderLogs();
+    return;
+  }
+  // New distinct entry
+  entry.repeatCount = 1;
   logs.unshift(entry);
   saveLogs(logs);
   renderLogs();
@@ -181,19 +211,39 @@ function renderLogs(){
 
     const meta = document.createElement("div");
     meta.className = "log-meta";
-    const time = document.createElement("div");
-    time.className = "small-text";
-    time.textContent = formatTime(l.timestamp);
     const total = document.createElement("div");
     total.innerHTML = `<strong>${l.total}</strong>`;
     meta.appendChild(total);
+
+    // Show badges: fumble/critical + repeat if present
+    const badgesContainer = document.createElement("div");
+    badgesContainer.style.display = "flex";
+    badgesContainer.style.justifyContent = "flex-end";
+    badgesContainer.style.gap = "8px";
+    badgesContainer.style.marginTop = "6px";
 
     if(l.tag){
       const badge = document.createElement("div");
       badge.className = "badge " + (l.tag === "fumble" ? "fumble" : "crit");
       badge.textContent = l.tag === "fumble" ? "Fumble" : "Critical";
-      meta.appendChild(badge);
+      badgesContainer.appendChild(badge);
     }
+
+    const repeatCount = l.repeatCount || 1;
+    if(repeatCount > 1){
+      const rbadge = document.createElement("div");
+      rbadge.className = "badge repeat";
+      rbadge.textContent = `連続 ×${repeatCount}`;
+      badgesContainer.appendChild(rbadge);
+    }
+
+    if(badgesContainer.children.length > 0){
+      meta.appendChild(badgesContainer);
+    }
+
+    const time = document.createElement("div");
+    time.className = "small-text";
+    time.textContent = formatTime(l.timestamp) + (repeatCount > 1 ? ` ・最新 ${repeatCount}回連続` : "");
     meta.appendChild(time);
 
     const right = document.createElement("div");
@@ -254,7 +304,8 @@ function doRollAndLog(notation){
     rolls: rollsForDisplay,
     total: comp.total,
     timestamp: Date.now(),
-    tag: tag
+    tag: tag,
+    repeatCount: 1
   };
   addLog(entry);
 }
